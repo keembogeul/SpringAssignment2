@@ -4,16 +4,12 @@ import java.util.Collections;
 import java.util.Optional;
 
 import com.example.spring3.dto.LoginDto;
-import com.example.spring3.dto.ResponseDto;
 import com.example.spring3.dto.UserDto;
 import com.example.spring3.entity.Authority;
 import com.example.spring3.entity.User;
 import com.example.spring3.repository.UserRepository;
 import com.example.spring3.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

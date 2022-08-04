@@ -2,14 +2,10 @@ package com.example.spring3.controller;
 
 import com.example.spring3.dto.ResponseDto;
 import com.example.spring3.dto.UserDto;
-import com.example.spring3.entity.User;
 import com.example.spring3.repository.UserRepository;
 import com.example.spring3.service.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -35,15 +31,4 @@ public class UserController {
         return ResponseDto.success(userService.signup(userDto));
     }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<User> getMyUserInfo(HttpServletRequest request) {
-        return ResponseEntity.ok(userService.getMyUserWithAuthorities().get());
-    }
-
-    @GetMapping("/user/{username}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<User> getUserInfo(@PathVariable String username) {
-        return ResponseEntity.ok(userService.getUserWithAuthorities(username).get());
-    }
 }

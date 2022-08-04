@@ -1,15 +1,11 @@
 package com.example.spring3.controller;
 
-
 import com.example.spring3.dto.LoginDto;
 import com.example.spring3.dto.ResponseDto;
 import com.example.spring3.dto.TokenDto;
-import com.example.spring3.entity.User;
 import com.example.spring3.jwt.TokenProvider;
-import com.example.spring3.repository.AuthorityRepository;
 import com.example.spring3.repository.UserRepository;
 import com.example.spring3.service.UserService;
-import jdk.nashorn.internal.parser.DateParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,14 +15,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")

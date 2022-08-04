@@ -36,7 +36,6 @@ public class TokenProvider implements InitializingBean {
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final String secret;
-    // private final long tokenValidityInMilliseconds;
 
     private Key key;
 
@@ -57,7 +56,6 @@ public class TokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        // Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
         // Access Token 생성
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);

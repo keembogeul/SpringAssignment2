@@ -39,6 +39,10 @@ public class BoardService {
 
         Optional<Board> optionalBoard = boardRepository.findById(id);
 
+        if (!optionalBoard.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
+        }
+
         return ResponseDto.success(BoardResponseDto.getDetailBoard(
                 optionalBoard.get().getPostId(),
                 optionalBoard.get().getAuthor(),
@@ -60,6 +64,14 @@ public class BoardService {
         Optional<Board> optionalBoard = boardRepository.findById(id);
         String author = SecurityUtil.getCurrentUsername().get();
 
+        if (!optionalBoard.get().getAuthor().equals(author)) {
+            return ResponseDto.fail("NOT_FOUND", "작성자만 수정할 수 있습니다.");
+        }
+
+        if (!optionalBoard.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
+        }
+
         Board board = optionalBoard.get();
         board.update(requestDto, author);
 
@@ -68,13 +80,18 @@ public class BoardService {
 
     @Transactional
     public ResponseDto<?> deleteBoard(Long id) {
-        Optional<Board> optionalBoard = Optional.ofNullable(boardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
-        ));
+        Optional<Board> optionalBoard = boardRepository.findById(id);
+        String author = SecurityUtil.getCurrentUsername().get();
+        if (!optionalBoard.get().getAuthor().equals(author)) {
+            return ResponseDto.fail("NOT_FOUND", "작성자만 삭제할 수 있습니다.");
+        }
 
+        if (!optionalBoard.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
+        }
         Board board = optionalBoard.get();
-
         boardRepository.delete(board);
+        commentRepository.deleteByPostId(id);
 
         return ResponseDto.success("delete success");
     }

@@ -23,9 +23,12 @@ public class CommentService {
 
     @Transactional
     public ResponseDto<?> createComment(CommentRequestDto requestDto) {
-        Board board = boardRepository.findById(requestDto.getPostId()).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
-        );
+        Optional<Board> optionalBoard = boardRepository.findById(requestDto.getPostId());
+
+        if (!optionalBoard.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
+        }
+
         String author = SecurityUtil.getCurrentUsername().get();
         Comment comment = new Comment(requestDto, author);
         commentRepository.save(comment);
@@ -38,7 +41,7 @@ public class CommentService {
         List<CommentResponseDto> commentList = commentRepository.findAllByPostId(postId);
 
         if (commentList.isEmpty()) {
-            new Exception("댓글이 존재하지 않습니다.");
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
         }
 
         return ResponseDto.success(commentList);
@@ -46,12 +49,21 @@ public class CommentService {
 
     @Transactional
     public ResponseDto<?> updateComment(Long commentId, CommentRequestDto requestDto) {
-        Board board = boardRepository.findById(requestDto.getPostId()).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다.")
-        );
-
+        Optional<Board> optionalBoard = boardRepository.findById(requestDto.getPostId());
         Optional<Comment> optionalComment = commentRepository.findByCommentId(commentId);
         String author = SecurityUtil.getCurrentUsername().get();
+
+        if (!optionalBoard.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "게시글이 존재하지 않습니다.");
+        }
+
+        if (!optionalComment.get().getAuthor().equals(author)) {
+            return ResponseDto.fail("NOT_FOUND", "작성자만 수정할 수 있습니다.");
+        }
+
+        if (!optionalComment.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "댓글이 존재하지 않습니다.");
+        }
 
         Comment comment = optionalComment.get();
         comment.update(requestDto, author);
@@ -60,9 +72,16 @@ public class CommentService {
     }
 
     public ResponseDto<?> deleteComment(Long commentId) {
-        Optional<Comment> optionalComment = Optional.ofNullable(commentRepository.findById(commentId).orElseThrow(
-                () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
-        ));
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        String author = SecurityUtil.getCurrentUsername().get();
+
+        if (!optionalComment.isPresent()) {
+            return ResponseDto.fail("NOT_FOUND", "댓글이 존재하지 않습니다.");
+        }
+
+        if (!optionalComment.get().getAuthor().equals(author)) {
+            return ResponseDto.fail("NOT_FOUND", "작성자만 삭제할 수 있습니다.");
+        }
 
         Comment comment = optionalComment.get();
 

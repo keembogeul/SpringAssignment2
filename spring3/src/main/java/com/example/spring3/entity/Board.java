@@ -29,11 +29,6 @@ public class Board extends Timestamped {
     @Column(nullable = false)
     private String contents;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @OrderBy("commentId asc") // 댓글 정렬
-//    private List<Comment> comments = new ArrayList<>();
-
 
     public Board(BoardRequestDto requestDto, String author) {
         this.author = author;
@@ -47,8 +42,5 @@ public class Board extends Timestamped {
         this.contents = requestDto.getContents();
     }
 
-//    public void addComment(Comment comment) {
-//        this.comments.add(comment);
-//        comment.setBoard(this);
-//    }
+
 }
