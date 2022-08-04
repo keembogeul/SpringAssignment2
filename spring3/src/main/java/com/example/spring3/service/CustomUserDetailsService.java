@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Component("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -41,4 +42,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 grantedAuthorities
         );
     }
+
 }

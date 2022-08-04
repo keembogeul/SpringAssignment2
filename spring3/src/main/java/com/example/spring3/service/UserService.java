@@ -8,7 +8,6 @@ import com.example.spring3.dto.UserDto;
 import com.example.spring3.entity.Authority;
 import com.example.spring3.entity.User;
 import com.example.spring3.repository.UserRepository;
-import com.example.spring3.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,13 +50,13 @@ public class UserService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public Optional<User> getUserWithAuthorities(String username) {
-        return userRepository.findOneWithAuthoritiesByUsername(username);
-    }
-
-    @Transactional(readOnly = true)
-    public Optional<User>  getMyUserWithAuthorities() {
-        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
-    }
+//    @Transactional(readOnly = true)
+//    public Optional<User> getUserWithAuthorities(String username) {
+//        return userRepository.findOneWithAuthoritiesByUsername(username);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public Optional<User>  getMyUserWithAuthorities() {
+//        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
+//    }
 }

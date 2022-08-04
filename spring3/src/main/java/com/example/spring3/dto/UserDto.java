@@ -1,12 +1,10 @@
 package com.example.spring3.dto;
 
-import com.example.spring3.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.validation.constraints.*;
-import java.util.Set;
-import java.util.stream.Collectors;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 @Getter
@@ -28,16 +26,4 @@ public class UserDto {
     @NotBlank(message = "비밀번호 확인을 입력해주세요")
     private String passwordConfirm;
 
-    private Set<AuthorityDto> authorityDtoSet;
-
-    public static UserDto from(User user) {
-        if(user == null) return null;
-
-        return UserDto.builder()
-                .username(user.getUsername())
-                .authorityDtoSet(user.getAuthorities().stream()
-                        .map(authority -> AuthorityDto.builder().authorityName(authority.getAuthorityName()).build())
-                        .collect(Collectors.toSet()))
-                .build();
-    }
 }

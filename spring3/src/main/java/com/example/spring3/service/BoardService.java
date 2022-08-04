@@ -1,21 +1,17 @@
 package com.example.spring3.service;
 
+import com.example.spring3.dto.BoardRequestDto;
 import com.example.spring3.dto.BoardResponseDto;
-import com.example.spring3.dto.CommentResponseDto;
 import com.example.spring3.dto.ResponseDto;
 import com.example.spring3.entity.Board;
-import com.example.spring3.entity.Comment;
 import com.example.spring3.repository.BoardRepository;
-import com.example.spring3.dto.BoardRequestDto;
 import com.example.spring3.repository.CommentRepository;
 import com.example.spring3.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor

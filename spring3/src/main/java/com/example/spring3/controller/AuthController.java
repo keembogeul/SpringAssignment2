@@ -33,6 +33,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/member/login")
+
     public ResponseEntity<?> authorize(@Valid @RequestBody LoginDto loginDto) {
         if (userService.login(loginDto)) {
             UsernamePasswordAuthenticationToken authenticationToken =

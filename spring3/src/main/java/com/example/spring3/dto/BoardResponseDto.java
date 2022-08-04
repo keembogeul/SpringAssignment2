@@ -1,12 +1,9 @@
 package com.example.spring3.dto;
 
-import com.example.spring3.entity.Board;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Getter
 @Setter

@@ -1,10 +1,7 @@
 package com.example.spring3.dto;
 
-import com.example.spring3.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @AllArgsConstructor

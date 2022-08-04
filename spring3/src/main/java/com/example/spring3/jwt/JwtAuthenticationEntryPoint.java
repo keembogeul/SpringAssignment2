@@ -1,6 +1,5 @@
 package com.example.spring3.jwt;
 
-import com.example.spring3.dto.ResponseDto;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

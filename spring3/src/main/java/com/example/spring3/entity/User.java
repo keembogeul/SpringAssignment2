@@ -2,10 +2,7 @@ package com.example.spring3.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
